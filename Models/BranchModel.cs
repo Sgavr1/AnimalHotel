@@ -64,5 +64,10 @@ namespace AnimalHotel.Models
                 
             }
         }
+
+        public static void RemoveBranch()
+        {
+
+        }
     }
 }
