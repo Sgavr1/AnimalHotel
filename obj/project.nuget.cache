@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EhTXRMLs7fuJKS5IrFyPoSAD6rxk4nqdbFViiHmt4R/bYILBhOF7jjH6NtEITrm4hY7jd00r/BaPdv0Gd7O02A==",
+  "dgSpecHash": "PhqjQkqSCE2NcNbDllcGB1OK8Ns94tWMRg7RyrH0YwT41DJ+ysND1B/lHv6daM0oAlJn0R1lB7T15fB6FIHLFg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alex\\Desktop\\Бд Карина\\AnimalHotel\\AnimalHotel.csproj",
+  "projectFilePath": "C:\\Users\\Alex\\Desktop\\Бд Карина\\Git\\AnimalHotel\\AnimalHotel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alex\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.10\\microsoft.entityframeworkcore.5.0.10.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.10\\microsoft.entityframeworkcore.abstractions.5.0.10.nupkg.sha512",
