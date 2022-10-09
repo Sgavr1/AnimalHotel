@@ -59,7 +59,7 @@ namespace AnimalHotel.Models
             while (npgsqlDataReader.Read())
             {
                 this.id = int.Parse(npgsqlDataReader[0].ToString());
-                this.role.id = int.Parse(npgsqlDataReader[0].ToString());
+                this.role.id = int.Parse(npgsqlDataReader[1].ToString());
                 this.tel = tel;
                 this.password = password;
                 return true;
