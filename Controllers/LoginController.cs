@@ -12,7 +12,10 @@ namespace AnimalHotel.Controllers
         MessageModel message = null;
         public ActionResult Index()
         {
+
+
             ViewBag.Message = message;
+            message = null;
 
             return View();
         }
