@@ -16,9 +16,8 @@ namespace AnimalHotel.Models
         public string street;
         public int number_house;
 
-        public MessageModel AddInfoPersone(int account_id,string first_name, string last_name, DateTime day_of_birdth, string city, string street, int number_house, string role)
+        public MessageModel AddInfoPersone(int account_id,string first_name, string last_name, DateTime day_of_birdth, string city, string street, int number_house, DBConect db)
         {
-            DBConect db = new DBConect(role);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
             NpgsqlCommand command = new NpgsqlCommand($"Insert Into InfoPersone(account_id, first_name, last_name, day_of_birdth, city, street, number_house) Values('{account_id}','{first_name}','{last_name}','{day_of_birdth.ToString("dd.mm.yyyy")}', '{city}', '{street}', '{number_house}');", db.getConnection());
@@ -28,7 +27,6 @@ namespace AnimalHotel.Models
             {
                 
             }
-            db.CloseConnection();
 
             return new MessageModel("Акаунт создан", false);
         }
