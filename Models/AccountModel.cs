@@ -10,7 +10,7 @@ namespace AnimalHotel.Models
     {
         public int id;
         public RoleModel role;
-        public string tel;
+        public string login;
         public string password;
 
         public AccountModel()
@@ -18,11 +18,11 @@ namespace AnimalHotel.Models
             role = new RoleModel();
         }
 
-        public MessageModel AddAccount(string tel, string password, int role, DBConect db)
+        public MessageModel AddAccount(string login, string password, int role, DBConect db)
         {
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Insert Into Account(Role_id,tel,password) Values('{role}', '{tel}','{password}');", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Insert Into Account(Role_id,login,password) Values('{role}', '{login}','{password}');", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -33,34 +33,34 @@ namespace AnimalHotel.Models
             return new MessageModel("Акаунт добавлен", false);
         }
 
-        public bool CheckAccount(string tel, DBConect db)
+        public bool CheckAccount(string login, DBConect db)
         {
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Account Where tel = '{tel}'", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Account Where login = '{login}'", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
             {
-                this.tel = tel;
+                this.login = login;
                 return true;
             }
 
             return false;
         }
 
-        public bool getAccount(string tel, string password, DBConect db)
+        public bool getAccount(string login, string password, DBConect db)
         {
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Account Where tel = '{tel}' And password = '{password}'", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Account Where login = '{login}' And password = '{password}'", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
             {
                 this.id = int.Parse(npgsqlDataReader[0].ToString());
                 this.role.id = int.Parse(npgsqlDataReader[1].ToString());
-                this.tel = tel;
+                this.login = login;
                 this.password = password;
                 return true;
             }
