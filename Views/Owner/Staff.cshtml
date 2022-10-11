@@ -102,7 +102,7 @@
                     @if(staff.branch.id == branch.id)
                     {
                         <p>@staff.infoPersone.first_name @staff.infoPersone.last_name @staff.account.role.name</p>
-                        <form>
+                        <form action="/Owner/UpdateSalaryStaff">
                             <ul>
                                 <li>
                                     <input type="number" name="id" value="@staff.id" /> <!-- недолжно быть видно -->

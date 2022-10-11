@@ -90,6 +90,7 @@ namespace AnimalHotel.Models
                 this.tel = npgsqlDataReader[4].ToString();
                 this.status = bool.Parse(npgsqlDataReader[5].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();

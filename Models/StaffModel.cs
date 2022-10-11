@@ -26,7 +26,7 @@ namespace AnimalHotel.Models
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Staff Where account_id = '{idAccount}' And end_date IS NOT NULL", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Staff Where account_id = '{idAccount}' And end_date IS NULL", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -38,6 +38,7 @@ namespace AnimalHotel.Models
                 this.branch.id = int.Parse(npgsqlDataReader[5].ToString());
                 this.salary = int.Parse(npgsqlDataReader[6].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -50,7 +51,7 @@ namespace AnimalHotel.Models
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Staff Where info_id = '{idInfoPersone}' And end_date IS NOT NULL", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Staff Where info_id = '{idInfoPersone}' And end_date IS NULL", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -62,6 +63,7 @@ namespace AnimalHotel.Models
                 this.branch.id = int.Parse(npgsqlDataReader[5].ToString());
                 this.salary = int.Parse(npgsqlDataReader[6].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -169,6 +171,7 @@ namespace AnimalHotel.Models
                 this.branch.id = int.Parse(npgsqlDataReader[5].ToString());
                 this.salary = int.Parse(npgsqlDataReader[6].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();

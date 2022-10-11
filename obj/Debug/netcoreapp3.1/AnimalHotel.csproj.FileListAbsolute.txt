@@ -103,3 +103,7 @@ C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\
 C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\AnimalHotel.genruntimeconfig.cache
 C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\Razor\Views\Owner\ControlType.cshtml.g.cs
 C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\Razor\Views\Owner\Room.cshtml.g.cs
+C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Report.cshtml.g.cs
+C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Room.cshtml.g.cs
+C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Service.cshtml.g.cs
+C:\Users\Alex\Desktop\Бд Карина\Git\AnimalHotel\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Staff.cshtml.g.cs

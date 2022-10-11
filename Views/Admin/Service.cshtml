@@ -1,0 +1,73 @@
+﻿@using AnimalHotel.Models;
+<html>
+<body>
+    <header>
+        <a href="/Admin/Staff">Сотрудники</a>
+        <a href="/Admin/Room">Комнаты</a>
+        <a href="/Admin/Report">Отчеты</a>
+    </header>
+    <div>
+        <form action="/Admin/AddService">
+            <ul>
+                <li>
+                    <label>Название</label>
+                </li>
+                <li>
+                    <input type="text" name="name" />
+                </li>
+                <li>
+                    <label>Животное</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.AnimalType.Count; i++)
+                    {
+                        <input type="radio" id="animalType_@i" name="animalType" value="@ViewBag.AnimalType[i].id" />
+                        <label for="animalType_@i">@ViewBag.AnimalType[i].name</label>
+                    }
+                </li>
+                <li>
+                    <label>Цена</label>
+                </li>
+                <li>
+                    <input type="number" name="price" />
+                </li>
+            </ul>
+            <button type="submit">Добавить новую услугу</button>
+        </form>
+
+        <p>Все типы комнат</p>
+        <div>
+            @foreach (RoomTypeModel roomType in ViewBag.RoomType)
+            {
+                <p>@roomType.name</p>
+            }
+        </div>
+        <p>Все типы животных</p>
+        <div>
+            @foreach (AnimalTypeMode animalType in ViewBag.AnimalType)
+            {
+                <p>@animalType.name</p>
+            }
+        </div>
+        <p>Все услуги</p>
+        <div>
+            @foreach (ServiceModel service in ViewBag.Service)
+            {
+                <p>@ViewBag.Branch.city @ViewBag.Branch.street @ViewBag.Branch.number_house</p>
+
+
+                @if (service.status)
+                {
+                    <p>@service.name @service.Price @service.animalType.name</p>
+                    <a href="/Admin/CloseService/@service.id">закрыть</a>
+                }
+                else
+                {
+                    <p>@service.name @service.Price @service.animalType.name</p>
+                    <a href="/Admin/OpenService/@service.id">открыть</a>
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>

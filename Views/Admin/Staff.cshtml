@@ -1,0 +1,100 @@
+﻿@using AnimalHotel.Models;
+<html>
+<body>
+    <header>
+        <a href="/Admin/Room">Комнаты</a>
+        <a href="/Admin/Report">Отчеты</a>
+        <a href="/Admin/Service">Услуги</a>
+    </header>
+    <div>
+        <form action="/Admin/AddStaff">
+            <ul>
+                <li>
+                    <label>Логин</label>
+                </li>
+                <li>
+                    <input type="text" name="login" />
+                </li>
+                <li>
+                    <label>Пароль</label>
+                </li>
+                <li>
+                    <input type="text" name="password" />
+                </li>
+                <li>
+                    <label>Телефон</label>
+                </li>
+                <li>
+                    <input type="tel" name="tel" />
+                </li>
+                <li>
+                    <label>Имя</label>
+                </li>
+                <li>
+                    <input type="text" name="first_name" />
+                </li>
+                <li>
+                    <label>Фамилия</label>
+                </li>
+                <li>
+                    <input type="text" name="last_name" />
+                </li>
+                <li>
+                    <label>Дата рождения</label>
+                </li>
+                <li>
+                    <input type="date" name="day_of_birth" />
+                </li>
+                <li>
+                    <label>Город</label>
+                </li>
+                <li>
+                    <input type="text" name="city" />
+                </li>
+                <li>
+                    <label>Улица</label>
+                </li>
+                <li>
+                    <input type="text" name="street" />
+                </li>
+                <li>
+                    <label>Номер дома</label>
+                </li>
+                <li>
+                    <input type="number" name="number_house" />
+                </li>
+                <li>
+                    <label>Зарплата</label>
+                </li>
+                <li>
+                    <input type="number" name="salary" />
+                </li>
+            </ul>
+            <button type="submit">Добавить новое сотрудника</button>
+        </form>
+
+        <div>
+            <p>@ViewBag.Branch.city @ViewBag.Branch.street @ViewBag.Branch.number_house</p>
+            @foreach (StaffModel staff in ViewBag.Staffs)
+            {
+                <p>@staff.infoPersone.first_name @staff.infoPersone.last_name @staff.account.role.name</p>
+                <form actin="/Owner/UpdateSalaryStaff">
+                    <ul>
+                        <li>
+                            <input type="number" name="id" value="@staff.id" /> <!-- недолжно быть видно -->
+                        </li>
+                        <li>
+                            <label>Зарплата</label>
+                        </li>
+                        <li>
+                            <input type="number" name="salary" value="@staff.salary" />
+                        </li>
+                    </ul>
+                    <button type="submit">Изменить зарплату</button>
+                </form>
+                <a href="/owner/FireStaff/@staff.id">Уволить</a>
+            }
+        </div>
+    </div>
+</body>
+</html>

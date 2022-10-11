@@ -48,6 +48,8 @@ namespace AnimalHotel.Models
             while (npgsqlDataReader.Read())
             {
                 this.login = login;
+
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -69,6 +71,8 @@ namespace AnimalHotel.Models
                 this.role.id = int.Parse(npgsqlDataReader[1].ToString());
                 this.login = login;
                 this.password = password;
+
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -91,6 +95,7 @@ namespace AnimalHotel.Models
                 this.login = npgsqlDataReader[2].ToString();
                 this.password = npgsqlDataReader[3].ToString();
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();

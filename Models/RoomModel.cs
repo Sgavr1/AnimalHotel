@@ -52,6 +52,7 @@ namespace AnimalHotel.Models
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
             {
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -92,7 +93,8 @@ namespace AnimalHotel.Models
             foreach(RoomModel room in rooms)
             {
                 room.animalType.GetAnimalTypeById(room.animalType.id, postgreas);
-                room.animal.GetAnimalById(room.animal.id, postgreas);
+                if(room.animal != null)
+                    room.animal.GetAnimalById(room.animal.id, postgreas);
                 room.roomType.GetRoomTypeById(room.roomType.id, postgreas);
                 room.branch.GetBranchById(room.branch.id, postgreas);
             }
@@ -133,7 +135,8 @@ namespace AnimalHotel.Models
             foreach (RoomModel room in rooms)
             {
                 room.animalType.GetAnimalTypeById(room.animalType.id, postgreas);
-                room.animal.GetAnimalById(room.animal.id, postgreas);
+                if (room.animal != null)
+                    room.animal.GetAnimalById(room.animal.id, postgreas);
                 room.roomType.GetRoomTypeById(room.roomType.id, postgreas);
                 room.branch.GetBranchById(room.branch.id, postgreas);
             }
@@ -146,7 +149,7 @@ namespace AnimalHotel.Models
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Account Where id = '{id}'", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Room Where id = '{id}'", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -163,6 +166,7 @@ namespace AnimalHotel.Models
                 this.branch.id = int.Parse(npgsqlDataReader[6].ToString());
                 this.status = bool.Parse(npgsqlDataReader[7].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -191,6 +195,7 @@ namespace AnimalHotel.Models
                 this.branch.id = int.Parse(npgsqlDataReader[6].ToString());
                 this.status = bool.Parse(npgsqlDataReader[7].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();

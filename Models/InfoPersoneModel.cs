@@ -49,6 +49,8 @@ namespace AnimalHotel.Models
                 this.city = npgsqlDataReader[5].ToString();
                 this.street = npgsqlDataReader[6].ToString();
                 this.number_house = int.Parse(npgsqlDataReader[7].ToString());
+
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -75,6 +77,7 @@ namespace AnimalHotel.Models
                 this.street = npgsqlDataReader[6].ToString();
                 this.number_house = int.Parse(npgsqlDataReader[7].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();

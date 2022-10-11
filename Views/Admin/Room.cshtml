@@ -1,0 +1,70 @@
+﻿@using AnimalHotel.Models
+<html>
+<body>
+    <header>
+        <a href="/Admin/Staff">Сотрудники</a>
+        <a href="/Admin/Report">Отчеты</a>
+        <a href="/Admin/Service">Услуги</a>
+    </header>
+    <div>
+        <form action="/Admin/AddRoom">
+            <ul>
+                <li>
+                    <label>Животное</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.RoomType.Count; i++)
+                    {
+                        <input type="radio" id="animalType_@i" name="animalType" value="@ViewBag.AnimalType[i].id" />
+                        <label for="animalType_@i">@ViewBag.AnimalType[i].name</label>
+                    }
+                </li>
+                <li>
+                    <label>номер комнаты</label>
+                </li>
+                <li>
+                    <input type="text" name="number" />
+                </li>
+                <li>
+                    <label>Цена</label>
+                </li>
+                <li>
+                    <input type="number" name="price" />
+                </li>
+                <li>
+                    <label>Тип Комнаты</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.RoomType.Count; i++)
+                    {
+                        <input type="radio" id="roomType_@i" name="roomType" value="@ViewBag.RoomType[i].id" />
+                        <label for="roomType_@i">@ViewBag.RoomType[i].name</label>
+                    }
+                </li>
+            </ul>
+            <button type="submit">Добавить новую комнату</button>
+        </form>
+        <div>
+            @foreach (RoomModel room in ViewBag.Rooms)
+            {
+            <div>
+                <p>@ViewBag.Branch.city @ViewBag.Branch.street @ViewBag.Branch.number_house</p>
+
+
+                @if (room.status)
+                {
+                    <p>@room.number @room.Price @room.animalType.name @room.roomType.name</p>
+                    <a href="/Admin/CloseRoom/@room.id">закрыть</a>
+                }
+                else
+                {
+                    <p>@room.number @room.Price @room.animalType.name @room.roomType.name</p>
+                    <a href="/Admin/OpenRoom/@room.id">открыть</a>
+                }
+            </div>
+
+            }
+        </div>
+    </div>
+</body>
+</html>

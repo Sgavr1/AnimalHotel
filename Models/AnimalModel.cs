@@ -32,6 +32,7 @@ namespace AnimalHotel.Models
                 this.animalType.id = int.Parse(npgsqlDataReader[1].ToString());
                 this.infoPersone.id = int.Parse(npgsqlDataReader[2].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();

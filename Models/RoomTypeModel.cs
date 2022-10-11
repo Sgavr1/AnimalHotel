@@ -36,6 +36,7 @@ namespace AnimalHotel.Models
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
             {
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -78,6 +79,8 @@ namespace AnimalHotel.Models
             {
                 this.id = id;
                 this.name = npgsqlDataReader[1].ToString();
+
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();

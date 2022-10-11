@@ -31,6 +31,7 @@ namespace AnimalHotel.Models
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
             {
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
@@ -136,6 +137,7 @@ namespace AnimalHotel.Models
                 this.status = bool.Parse(npgsqlDataReader[4].ToString());
                 this.animalType.id = int.Parse(npgsqlDataReader[5].ToString());
 
+                db.CloseConnection();
                 return true;
             }
             db.CloseConnection();
