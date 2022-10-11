@@ -9,34 +9,33 @@ namespace AnimalHotel.Controllers
 {
     public class LoginController : Controller
     {
-        DBConect db = new DBConect("Login");
+        string postgreas = "tologin";
         MessageModel message = null;
         public ActionResult Index()
         {
             ViewBag.Message = message;
             message = null;
 
+            return Login("Owner", "Boss");
+
             return View();
         }
 
-        public ActionResult Login(string tel, string password)
+        public ActionResult Login(string login, string password)
         {
             AccountModel account = new AccountModel();
-            if(account.getAccount(tel, password, db))
+            if(account.getAccount(login, password, postgreas))
             {
                 if(account.role.id == 1)
                 {
-                    db.CloseConnection();
                     return Redirect("/Owner/ToLogin/"+account.id);
                 }
                 else if(account.role.id == 2)
                 {
-                    db.CloseConnection();
                     return Redirect("/Admin/ToLogin/"+account.id);
                 }
                 else if(account.role.id == 3)
                 {
-                    db.CloseConnection();
                     return Redirect("/Staff/ToLogin/"+account.id);
                 }
             }

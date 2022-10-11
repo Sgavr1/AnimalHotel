@@ -1,0 +1,16 @@
+﻿@using AnimalHotel.Models
+
+<p>Управление типами</p>
+
+@foreach(RoomTypeModel roomType in ViewBag.RoomType)
+            {
+                <p>@roomType.name</p>
+            }
+@foreach(AnimalTypeMode animalType in ViewBag.AnimalType)
+            {
+                <p>@animalType.name</p>
+            }
+@foreach(ServiceModel service in ViewBag.Service)
+            {
+                <p>@service.name</p>
+            }

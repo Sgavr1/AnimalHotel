@@ -1,1 +1,8 @@
-﻿
+﻿@using AnimalHotel.Models
+<p>
+    Сотрудники
+</p>
+@foreach(StaffModel staff in ViewBag.Staffs)
+            {
+                <p>@staff.salary</p>
+            }

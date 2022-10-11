@@ -7,7 +7,7 @@
         public MessageModel(string message, bool Error)
         {
             messageText = message;
-            this.Error = Error
+            this.Error = Error;
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿<html>
     <body>
+        @if(ViewBag.Message != null)
+            {
+                <p>@ViewBag.Message.messageText</p>
+            }
         <p>Я тип тут что то изменил, охуеть да ? </p>
     </body>
 </html>
