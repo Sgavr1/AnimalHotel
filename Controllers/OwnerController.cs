@@ -12,6 +12,8 @@ namespace AnimalHotel.Controllers
     {
         string postgreas = "owner";
         MessageModel message = null;
+
+        List<OrdersModel> orders = null;
         public ActionResult Index()
         {
             return View();
@@ -45,8 +47,16 @@ namespace AnimalHotel.Controllers
             return Redirect("/Owner/Branch");
         }
 
-        public ActionResult RemoveBranch(int id)
+        public ActionResult CloseBranch(int id)
         {
+            BranchModel branch = new BranchModel();
+            if(!branch.GetBranchById(id, postgreas))
+            {
+                message = new MessageModel("Такого отделения нет", true);
+                return Redirect("/Owner/Branch");
+            }
+            branch.CloseBranch(id, postgreas);
+
             return Redirect("/Owner/Branch");
         }
 
@@ -86,9 +96,78 @@ namespace AnimalHotel.Controllers
             return Redirect("/Owner/Staff");
         }
 
+        public ActionResult FireStaff(int id)
+        {
+            StaffModel staff = new StaffModel();
+            if (!staff.GetStaffById(id, postgreas))
+            {
+                message = new MessageModel("Такого сотрудника нет", true);
+                return Redirect("/Owner/Staff");
+            }
+            staff.FireStaff(id, postgreas);
+
+            return Redirect("/Owner/Staff");
+        }
+
         public ActionResult Report()
         {
+            ViewBag.BranchModel = BranchModel.GetAllBranch(postgreas);
+            ViewBag.Orders = orders;
+
             return View();
+        }
+
+        public ActionResult AllReport()
+        {
+            orders = OrdersModel.GetAllOrder(postgreas);
+            foreach (OrdersModel order in orders)
+            {
+                order.animalOrders = AnimalOrderModel.GetAllAnimalOrderById(order, postgreas);
+                foreach(AnimalOrderModel animalOrder in order.animalOrders)
+                {
+                    animalOrder.serviceOrders = ServiceOrderModel.GetServiceOrderModelById(animalOrder, postgreas);
+                }
+            }
+
+            return Redirect("/Owner/Report");
+        }
+
+        public ActionResult AllReportByBranch(int branch)
+        {
+            orders = OrdersModel.GetAllOrderByBranch(branch, postgreas);
+            foreach (OrdersModel order in orders)
+            {
+                order.animalOrders = AnimalOrderModel.GetAllAnimalOrderById(order, postgreas);
+                foreach (AnimalOrderModel animalOrder in order.animalOrders)
+                {
+                    animalOrder.serviceOrders = ServiceOrderModel.GetServiceOrderModelById(animalOrder, postgreas);
+                }
+            }
+
+            return Redirect("/Owner/Report");
+        }
+
+        public ActionResult AllReportByYear(int year)
+        {
+            orders = new List<OrdersModel>();
+            List<OrdersModel> orderModels = OrdersModel.GetAllOrder(postgreas);
+            foreach (OrdersModel order in orderModels)
+            {
+                order.animalOrders = AnimalOrderModel.GetAllAnimalOrderById(order, postgreas);
+                if(order.animalOrders.Count > 0)
+                {
+                    if (order.animalOrders[0].begin_date.Year == year)
+                    {
+                        foreach (AnimalOrderModel animalOrder in order.animalOrders)
+                        {
+                            animalOrder.serviceOrders = ServiceOrderModel.GetServiceOrderModelById(animalOrder, postgreas);
+                        }
+                        orders.Add(order);
+                    }
+                }
+            }
+
+            return Redirect("/Owner/Report");
         }
 
         public ActionResult ControlType()
@@ -142,6 +221,20 @@ namespace AnimalHotel.Controllers
             return Redirect("/Owner/ControlType");
         }
 
+        public ActionResult CloseService(int id)
+        {
+            ServiceModel service = new ServiceModel();
+            if(!service.GetServiceById(id, postgreas))
+            {
+                message = new MessageModel("Такой услуги нет", true);
+                return Redirect("/Owner/ControlType");
+            }
+
+            service.CloseService(id, postgreas);
+
+            return Redirect("/Owner/ControlType");
+        }
+
         public ActionResult Room()
         {
             ViewBag.Rooms = RoomModel.GetAllRoom(postgreas);
@@ -164,6 +257,35 @@ namespace AnimalHotel.Controllers
 
             return Redirect("/Owner/Room");
         }
+
+        public ActionResult CloseRoom(int id)
+        {
+            RoomModel room = new RoomModel();
+            if (!room.GetRoomById(id, postgreas))
+            {
+                message = new MessageModel("Такой комнаты нет",true);
+                return Redirect("/Owner/Room");
+            }
+
+            room.CloseRoom(id, postgreas);
+
+            return Redirect("/Owner/Room");
+        }
+
+        public ActionResult OpenRoom(int id)
+        {
+            RoomModel room = new RoomModel();
+            if (!room.GetRoomById(id, postgreas))
+            {
+                message = new MessageModel("Такой комнаты нет", true);
+                return Redirect("/Owner/Room");
+            }
+
+            room.OpenRoom(id, postgreas);
+
+            return Redirect("/Owner/Room");
+        }
+
         public ActionResult Out()
         {
             return Redirect("/Login");

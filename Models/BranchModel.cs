@@ -13,6 +13,7 @@ namespace AnimalHotel.Models
         public string street;
         public int number_house;
         public string tel;
+        public bool status;
 
         public static List<BranchModel> GetAllBranch(string postgreas)
         {
@@ -21,7 +22,7 @@ namespace AnimalHotel.Models
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Branch", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Branch;", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -32,6 +33,8 @@ namespace AnimalHotel.Models
                 branch.street = npgsqlDataReader[2].ToString();
                 branch.number_house = int.Parse(npgsqlDataReader[3].ToString());
                 branch.tel = npgsqlDataReader[4].ToString();
+                branch.status = bool.Parse(npgsqlDataReader[5].ToString());
+
                 branches.Add(branch);
             }
             db.CloseConnection();
@@ -43,7 +46,7 @@ namespace AnimalHotel.Models
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Branch", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Branch;", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -60,7 +63,7 @@ namespace AnimalHotel.Models
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Insert Into Branch(city,street,number_house,tel) Values('{city}', '{street}','{number_house}','{tel}')", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Insert Into Branch(city,street,number_house,tel,status) Values('{city}', '{street}','{number_house}','{tel}', 'true');", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -75,7 +78,7 @@ namespace AnimalHotel.Models
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Select * From Branch Where id = '{id}'", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Select * From Branch Where id = '{id}';", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -85,11 +88,27 @@ namespace AnimalHotel.Models
                 this.street = npgsqlDataReader[2].ToString();
                 this.number_house = int.Parse(npgsqlDataReader[3].ToString());
                 this.tel = npgsqlDataReader[4].ToString();
+                this.status = bool.Parse(npgsqlDataReader[5].ToString());
 
                 return true;
             }
             db.CloseConnection();
             return false;
+        }
+
+        public void CloseBranch(int id, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Update Branch Set status = 'false' Where id = '{id}';", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+
+            }
+            db.CloseConnection();
         }
     }
 }

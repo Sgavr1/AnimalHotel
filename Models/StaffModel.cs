@@ -174,5 +174,20 @@ namespace AnimalHotel.Models
             db.CloseConnection();
             return false;
         }
+
+        public void FireStaff(int id, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Update Staff Set end_date = '{DateTime.Now.ToString("dd.MM.yyyy")}' Where id = '{id}';", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+
+            }
+            db.CloseConnection();
+        }
     }
 }

@@ -141,5 +141,20 @@ namespace AnimalHotel.Models
             db.CloseConnection();
             return false;
         }
+
+        public void CloseService(int id, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Update Service Set status = 'false' Where id = '{id}'", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+
+            }
+            db.CloseConnection();
+        }
     }
 }

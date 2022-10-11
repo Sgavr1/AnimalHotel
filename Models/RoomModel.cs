@@ -184,5 +184,35 @@ namespace AnimalHotel.Models
             db.CloseConnection();
             return false;
         }
+
+        public void CloseRoom(int id, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Update Room Set status = 'false' Where id = '{id}'", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+
+            }
+            db.CloseConnection();
+        }
+
+        public void OpenRoom(int id, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Update Room Set status = 'true' Where id = '{id}'", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+
+            }
+            db.CloseConnection();
+        }
     }
 }
