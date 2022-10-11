@@ -31,7 +31,7 @@ namespace AnimalHotel.Models
             DateTime nowDate = DateTime.Now;
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Insert Into Room(animaltype_id, number, animal_id, price, roomtype_id, branch_id, status) Values('{animalType}', '{number}', '{animal}', '{price}', '{roomtype}', '{branch}', 'true');", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Insert Into Room(animaltype_id, number, animal_id, price, roomtype_id, branch_id, status) Values('{animalType}', '{number}', null, '{price}', '{roomtype}', '{branch}', 'true');", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())
@@ -76,7 +76,10 @@ namespace AnimalHotel.Models
                 room.id = int.Parse(npgsqlDataReader[0].ToString());
                 room.animalType.id = int.Parse(npgsqlDataReader[1].ToString());
                 room.number = int.Parse(npgsqlDataReader[2].ToString());
-                room.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                if (npgsqlDataReader[3].ToString() != "")
+                    room.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                else
+                    room.animal = null;
                 room.Price = int.Parse(npgsqlDataReader[4].ToString());
                 room.roomType.id = int.Parse(npgsqlDataReader[5].ToString());
                 room.branch.id = int.Parse(npgsqlDataReader[6].ToString());
@@ -114,7 +117,10 @@ namespace AnimalHotel.Models
                 room.id = int.Parse(npgsqlDataReader[0].ToString());
                 room.animalType.id = int.Parse(npgsqlDataReader[1].ToString());
                 room.number = int.Parse(npgsqlDataReader[2].ToString());
-                room.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                if (npgsqlDataReader[3].ToString() != "")
+                    room.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                else
+                    room.animal = null;
                 room.Price = int.Parse(npgsqlDataReader[4].ToString());
                 room.roomType.id = int.Parse(npgsqlDataReader[5].ToString());
                 room.branch.id = int.Parse(npgsqlDataReader[6].ToString());
@@ -148,7 +154,10 @@ namespace AnimalHotel.Models
                 this.id = id;
                 this.animalType.id = int.Parse(npgsqlDataReader[1].ToString());
                 this.number = int.Parse(npgsqlDataReader[2].ToString());
-                this.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                if (npgsqlDataReader[3].ToString() != "")
+                    this.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                else
+                    this.animal = null;
                 this.Price = int.Parse(npgsqlDataReader[4].ToString());
                 this.roomType.id = int.Parse(npgsqlDataReader[5].ToString());
                 this.branch.id = int.Parse(npgsqlDataReader[6].ToString());
@@ -173,7 +182,10 @@ namespace AnimalHotel.Models
                 this.id = int.Parse(npgsqlDataReader[0].ToString());
                 this.animalType.id = int.Parse(npgsqlDataReader[1].ToString());
                 this.number = number;
-                this.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                if (npgsqlDataReader[3].ToString() != "")
+                    this.animal.id = int.Parse(npgsqlDataReader[3].ToString());
+                else
+                    this.animal = null;
                 this.Price = int.Parse(npgsqlDataReader[4].ToString());
                 this.roomType.id = int.Parse(npgsqlDataReader[5].ToString());
                 this.branch.id = int.Parse(npgsqlDataReader[6].ToString());

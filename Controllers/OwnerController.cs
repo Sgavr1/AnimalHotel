@@ -13,7 +13,7 @@ namespace AnimalHotel.Controllers
         string postgreas = "owner";
         MessageModel message = null;
 
-        List<OrdersModel> orders = null;
+        List<OrdersModel> orders = new List<OrdersModel>();
         public ActionResult Index()
         {
             return View();
@@ -21,7 +21,7 @@ namespace AnimalHotel.Controllers
 
         public ActionResult ToLogin(int accountId)
         {
-            return Redirect("/Owner/ControlType");
+            return Redirect("/Owner");
         }
 
         public ActionResult Branch()
@@ -60,9 +60,32 @@ namespace AnimalHotel.Controllers
             return Redirect("/Owner/Branch");
         }
 
+        public ActionResult OpenBranch(int id)
+        {
+            BranchModel branch = new BranchModel();
+            if (!branch.GetBranchById(id, postgreas))
+            {
+                message = new MessageModel("Такого отделения нет", true);
+                return Redirect("/Owner/Branch");
+            }
+            branch.OpenBranch(id, postgreas);
+
+            return Redirect("/Owner/Branch");
+        }
+
         public ActionResult Staff()
         {
             ViewBag.Staffs = StaffModel.GetAllStaff(postgreas);
+            List<BranchModel> branches = BranchModel.GetAllBranch(postgreas);
+            List<BranchModel> Branches = new List<BranchModel>();
+            foreach(BranchModel branch in branches)
+            {
+                if (branch.status)
+                {
+                    Branches.Add(branch);
+                }
+            }
+            ViewBag.Branches = Branches;
             ViewBag.Message = message;
             message = null;
 
@@ -109,10 +132,54 @@ namespace AnimalHotel.Controllers
             return Redirect("/Owner/Staff");
         }
 
+        public ActionResult UpdateSalaryStaff(int id, int salsry)
+        {
+            StaffModel staff = new StaffModel();
+            if (!staff.GetStaffById(id, postgreas))
+            {
+                message = new MessageModel("Такого сотрудника нет", true);
+                return Redirect("/Owner/Staff");
+            }
+            staff.UpdateSalaryStaff(id, salsry, postgreas);
+
+            return Redirect("/Owner/Staff");
+        }
+
         public ActionResult Report()
         {
-            ViewBag.BranchModel = BranchModel.GetAllBranch(postgreas);
+            List<BranchModel> branches = BranchModel.GetAllBranch(postgreas);
+            List<BranchModel> Branches = new List<BranchModel>();
+            foreach (BranchModel branch in branches)
+            {
+                if (branch.status)
+                {
+                    Branches.Add(branch);
+                }
+            }
+            ViewBag.Branches = Branches;
             ViewBag.Orders = orders;
+            int sum = 0;
+            int countAnimal = 0;
+            int countService = 0;
+
+            foreach(OrdersModel order in orders)
+            {
+                foreach(AnimalOrderModel animalOrder in order.animalOrders)
+                {
+                    countAnimal++;
+                    sum = (int)(animalOrder.price - (animalOrder.price/100) * animalOrder.sale);
+                    foreach(ServiceOrderModel serviceOrder in animalOrder.serviceOrders)
+                    {
+                        countService++;
+                        sum = (int)(serviceOrder.price - (serviceOrder.price / 100) * serviceOrder.sale);
+                    }
+                }
+            }
+
+            ViewBag.TotalPrice = sum;
+            ViewBag.TotalCountOrder = orders.Count;
+            ViewBag.TotalCountAnimal = countAnimal;
+            ViewBag.TotalCountService = countService;
 
             return View();
         }
@@ -172,6 +239,16 @@ namespace AnimalHotel.Controllers
 
         public ActionResult ControlType()
         {
+            List<BranchModel> branches = BranchModel.GetAllBranch(postgreas);
+            List<BranchModel> Branches = new List<BranchModel>();
+            foreach (BranchModel branch in branches)
+            {
+                if (branch.status)
+                {
+                    Branches.Add(branch);
+                }
+            }
+            ViewBag.Branches = Branches;
             ViewBag.RoomType = RoomTypeModel.GetAllRoomType(postgreas);
             ViewBag.AnimalType = AnimalTypeMode.GetAllAnimalType(postgreas);
             ViewBag.Service = ServiceModel.GetAllService(postgreas);
@@ -235,8 +312,34 @@ namespace AnimalHotel.Controllers
             return Redirect("/Owner/ControlType");
         }
 
+        public ActionResult OpenService(int id)
+        {
+            ServiceModel service = new ServiceModel();
+            if (!service.GetServiceById(id, postgreas))
+            {
+                message = new MessageModel("Такой услуги нет", true);
+                return Redirect("/Owner/ControlType");
+            }
+
+            service.OpenService(id, postgreas);
+
+            return Redirect("/Owner/ControlType");
+        }
+
         public ActionResult Room()
         {
+            List<BranchModel> branches = BranchModel.GetAllBranch(postgreas);
+            List<BranchModel> Branches = new List<BranchModel>();
+            foreach (BranchModel branch in branches)
+            {
+                if (branch.status)
+                {
+                    Branches.Add(branch);
+                }
+            }
+            ViewBag.Branches = Branches;
+            ViewBag.RoomType = RoomTypeModel.GetAllRoomType(postgreas);
+            ViewBag.AnimalType = AnimalTypeMode.GetAllAnimalType(postgreas);
             ViewBag.Rooms = RoomModel.GetAllRoom(postgreas);
             ViewBag.Message = message;
             message = null;

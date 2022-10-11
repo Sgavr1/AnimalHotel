@@ -1,1 +1,87 @@
-﻿
+﻿@using AnimalHotel.Models
+<html>
+<body>
+    <header>
+        <a href="/Owner/Branch">Отделения</a>
+        <a href="/Owner/Staff">Сотрудники</a>
+        <a href="/Owner/ControlType">Управление Типами</a>
+        <a href="/Owner/Report">Отчеты</a>
+    </header>
+    <div>
+        <form action="/Owner/AddRoom">
+            <ul>
+                <li>
+                    <label>Животное</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.RoomType.Count; i++)
+                    {
+                        <input type="radio" id="animalType_@i" name="animalType" value="@ViewBag.AnimalType[i].id" />
+                        <label for="animalType_@i">@ViewBag.AnimalType[i].name</label>
+                    }
+                </li>
+                <li>
+                    <label>номер комнаты</label>
+                </li>
+                <li>
+                    <input type="text" name="number" />
+                </li>
+                <li>
+                    <label>Цена</label>
+                </li>
+                <li>
+                    <input type="number" name="price" />
+                </li>
+                <li>
+                    <label>Тип Комнаты</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.RoomType.Count; i++)
+                    {
+                        <input type="radio" id="roomType_@i" name="roomType" value="@ViewBag.RoomType[i].id" />
+                        <label for="roomType_@i">@ViewBag.RoomType[i].name</label>
+                    }
+                </li>
+                <li>
+                    <label>Отделение</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.Branches.Count; i++)
+                    {
+                        <input type="radio" id="branch_@i" name="branch" value="@ViewBag.Branches[i].id" />
+                        <label for="branch_@i">@ViewBag.Branches[i].city @ViewBag.Branches[i].street @ViewBag.Branches[i].number_house</label>
+                    }
+                </li>
+            </ul>
+            <button type="submit">Добавить новую комнату</button>
+        </form>
+        <div>
+            @foreach (BranchModel branch in ViewBag.Branches)
+            {
+                @foreach (RoomModel room in ViewBag.Rooms)
+                {
+                    @if (branch.id == room.branch.id)
+                    {
+                        <div>
+                            <p>@branch.city @branch.street @branch.number_house</p>
+
+
+                            @if (room.status)
+                            {
+                                <p>@room.number @room.Price @room.animalType.name @room.roomType.name</p>
+                                <a href="/Owner/CloseRoom/@room.id">закрыть</a>
+                            }
+                            else
+                            {
+                        <p>@room.number @room.Price @room.animalType.name @room.roomType.name</p>
+                                <a href="/Owner/OpenRoom/@room.id">открыть</a>
+                            }
+                        </div>
+                    }
+
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>

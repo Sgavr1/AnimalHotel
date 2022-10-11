@@ -1,9 +1,21 @@
 ﻿<html>
     <body>
-        @if(ViewBag.Message != null)
-            {
-                <p>@ViewBag.Message.messageText</p>
-            }
-        <p>Я тип тут что то изменил, охуеть да ? </p>
+        <form action="/Login/Login">
+            <ul>
+                <li>
+                    <label>Логин</label>
+                </li>
+                <li>
+                    <input type="text" name="login" />
+                </li>
+                <li>
+                    <label>Пароль</label>
+                </li>
+                <li>
+                    <input type="text" name="password" />
+                </li>
+            </ul>
+            <button type="submit">Вход</button>
+        </form>
     </body>
 </html>

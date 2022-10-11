@@ -1,1 +1,49 @@
-﻿
+﻿@using AnimalHotel.Models
+<html>
+<body>
+    <header>
+        <a href="/Owner/Branch">Отделения</a>
+        <a href="/Owner/Staff">Сотрудники</a>
+        <a href="/Owner/ControlType">Управление Типами</a>
+        <a href="/Owner/Room">Комнаты</a>
+    </header>
+    <div>
+        <form action="/Owner/AllReportByBranch">
+            <ul>
+                <li>
+                    <label>Отделение</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.Branches.Count; i++)
+                    {
+                        <input type="radio" id="branch_@i" name="branch" value="@ViewBag.Branches[i].id" />
+                        <label for="branch_@i">@ViewBag.Branches[i].city @ViewBag.Branches[i].street @ViewBag.Branches[i].number_house</label>
+                    }
+                </li>
+            </ul>
+            <button type="submit">Отчет по Отделению</button>
+        </form>
+        <form action="/Owner/AllReportByYear">
+            <ul>
+                <li>
+                    <label>Год</label>
+                </li>
+                <li>
+                    <input type="number" name="year" />
+                </li>
+            </ul>
+            <button type="submit">Отчет за год</button>
+        </form>
+        <form action="/Owner/AllReport">
+            <button type="submit">За всё время</button>
+        </form>
+    </div>
+
+    <div>
+        <p>Всего зарабтано @ViewBag.TotalPrice</p> 
+        <p>Всего заказов @ViewBag.TotalCountOrder</p> 
+        <p>Всего животных @ViewBag.TotalCountAnimal</p> 
+        <p>Всего заказано услуг @ViewBag.TotalCountService</p> 
+    </div>
+</body>
+</html>

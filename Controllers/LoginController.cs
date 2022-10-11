@@ -16,8 +16,6 @@ namespace AnimalHotel.Controllers
             ViewBag.Message = message;
             message = null;
 
-            return Login("Owner", "Boss");
-
             return View();
         }
 

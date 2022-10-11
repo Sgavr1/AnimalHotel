@@ -110,5 +110,20 @@ namespace AnimalHotel.Models
             }
             db.CloseConnection();
         }
+
+        public void OpenBranch(int id, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Update Branch Set status = 'true' Where id = '{id}';", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+
+            }
+            db.CloseConnection();
+        }
     }
 }

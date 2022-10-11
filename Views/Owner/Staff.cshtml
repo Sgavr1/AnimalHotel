@@ -1,8 +1,127 @@
 ﻿@using AnimalHotel.Models
-<p>
-    Сотрудники
-</p>
-@foreach(StaffModel staff in ViewBag.Staffs)
+<html>
+<body>
+    <header>
+        <a href="/Owner/Branch">Отделения</a>
+        <a href="/Owner/ControlType">Управление Типами</a>
+        <a href="/Owner/Room">Комнаты</a>
+        <a href="/Owner/Report">Отчеты</a>
+    </header>
+    <div>
+        <form action="/Owner/AddStaff">
+            <ul>
+                <li>
+                    <label>Логин</label>
+                </li>
+                <li>
+                    <input type="text" name="login" />
+                </li>
+                <li>
+                    <label>Пароль</label>
+                </li>
+                <li>
+                    <input type="text" name="password" />
+                </li>
+                <li>
+                    <label>Должность</label>
+                </li>
+                <li>
+                    <input type="radio" id="role_1" name="role" value="2" />
+                    <label for="role_1">Администратор</label>
+                    <input type="radio" id="role_2" name="role" value="3" />
+                    <label for="role_2">Сотрудник</label>
+                </li>
+                <li>
+                    <label>Телефон</label>
+                </li>
+                <li>
+                    <input type="tel" name="tel" />
+                </li>
+                <li>
+                    <label>Имя</label>
+                </li>
+                <li>
+                    <input type="text" name="first_name" />
+                </li>
+                <li>
+                    <label>Фамилия</label>
+                </li>
+                <li>
+                    <input type="text" name="last_name" />
+                </li>
+                <li>
+                    <label>Дата рождения</label>
+                </li>
+                <li>
+                    <input type="date" name="day_of_birth" />
+                </li>
+                <li>
+                    <label>Город</label>
+                </li>
+                <li>
+                    <input type="text" name="city" />
+                </li>
+                <li>
+                    <label>Улица</label>
+                </li>
+                <li>
+                    <input type="text" name="street" />
+                </li>
+                <li>
+                    <label>Номер дома</label>
+                </li>
+                <li>
+                    <input type="number" name="number_house" />
+                </li>
+                <li>
+                    <label>Отделение</label>
+                </li>
+                <li>
+                    @for (int i = 0; i < ViewBag.Branches.Count; i++)
+                    {
+                        <input type="radio" id="branch_@i" name="branch"  value="@ViewBag.Branches[i].id"/>
+                        <label for="branch_@i">@ViewBag.Branches[i].city @ViewBag.Branches[i].street @ViewBag.Branches[i].number_house</label>
+                    }
+                </li>
+                <li>
+                    <label>Зарплата</label>
+                </li>
+                <li>
+                    <input type="number" name="salary" />
+                </li>
+            </ul>
+            <button type="submit">Добавить новое сотрудника</button>
+        </form>
+        <div>
+            @foreach(BranchModel branch in ViewBag.Branches)
             {
-                <p>@staff.salary</p>
+                <div>
+                    <p>@branch.city @branch.street @branch.number_house</p>
+                    @foreach(StaffModel staff in ViewBag.Staffs)
+                {
+                    @if(staff.branch.id == branch.id)
+                    {
+                        <p>@staff.infoPersone.first_name @staff.infoPersone.last_name @staff.account.role.name</p>
+                        <form>
+                            <ul>
+                                <li>
+                                    <input type="number" name="id" value="@staff.id" /> <!-- недолжно быть видно -->
+                                </li>
+                                <li>
+                                    <label>Зарплата</label>
+                                </li>
+                                <li>
+                                    <input type="number" name="salary" value="@staff.salary"/>
+                                </li>
+                            </ul>
+                            <button type="submit">Изменить зарплату</button>
+                        </form>
+                        <a href="/owner/FireStaff/@staff.id">Уволить</a>
+                    }
+                }
+                </div>
             }
+        </div>
+    </div>
+</body>
+</html>

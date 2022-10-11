@@ -1,8 +1,58 @@
 ﻿@using AnimalHotel.Models
-<p>
-    Отделения
-</p>
-@foreach (BranchModel branch in ViewBag.Branches)
-{
-    <p>branch = @branch.city</p>
-}
+<html>
+<body>
+    <header>
+        <a href="/Owner/Staff">Сотрудники</a>
+        <a href="/Owner/ControlType">Управление Типами</a>
+        <a href="/Owner/Room">Комнаты</a>
+        <a href="/Owner/Report">Отчеты</a>
+    </header>
+    <div>
+        <form action="/Owner/AddBranch">
+            <ul>
+                <li>
+                    <label>Город</label>
+                </li>
+                <li>
+                    <input type="text" name="city" />
+                </li>
+                <li>
+                    <label>Улица</label>
+                </li>
+                <li>
+                    <input type="text" name="street" />
+                </li>
+                <li>
+                    <label>Номер дома</label>
+                </li>
+                <li>
+                    <input type="number" name="number_house" />
+                </li>
+                <li>
+                    <label>Телефон</label>
+                </li>
+                <li>
+                    <input type="tel" name="tel" />
+                </li>
+            </ul>
+            <button type="submit">Добавить новое отделение</button>
+        </form>
+
+        @foreach(BranchModel branch in ViewBag.Branches)
+            {
+    <div>
+        @if (branch.status)
+        {
+            <p>@branch.city @branch.street</p>
+            <a href="/Owner/CloseBranch/@branch.id">закрыть</a>
+        }
+        else
+        {
+            <p>@branch.city @branch.street</p>
+            <a href="/Owner/OpenBranch/@branch.id">открыть</a>
+        }
+    </div>
+            }
+    </div>
+</body>
+</html>
