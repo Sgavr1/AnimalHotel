@@ -89,5 +89,20 @@ namespace AnimalHotel.Models
 
             return Orders;
         }
+
+        public void AddOrder(int staff, int infoPersone, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Insert Into Orders(staff_id, person_id) Values('{staff}', '{infoPersone}') Returning id;", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+                this.id = int.Parse(npgsqlDataReader[0].ToString());
+            }
+            db.CloseConnection();
+        }
     }
 }

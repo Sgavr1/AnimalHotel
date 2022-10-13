@@ -59,5 +59,20 @@ namespace AnimalHotel.Models
 
             return animalorders;
         }
+
+        public void AddAnimalOrder(int order_id, string postgreas)
+        {
+            DBConect db = new DBConect(postgreas);
+            db.OpenConnection();
+            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
+            NpgsqlCommand command = new NpgsqlCommand($"Insert Into AnimalOrder(room_id, animal_id, sale, price, order_id, begin_date, end_date) Values('{this.room.id}', '{this.animal.id}', '{this.sale}', '{this.price}', '{order_id}', '{this.begin_date.ToString("dd.MM.yyyy")}', '{this.end_date.ToString("dd.MM.yyyy")}') Returning id;", db.getConnection());
+            npgsqlDataAdapter.SelectCommand = command;
+            NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
+            while (npgsqlDataReader.Read())
+            {
+                this.id = int.Parse(npgsqlDataReader[0].ToString());
+            }
+            db.CloseConnection();
+        }
     }
 }

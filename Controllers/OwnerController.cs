@@ -132,7 +132,7 @@ namespace AnimalHotel.Controllers
             return Redirect("/Owner/Staff");
         }
 
-        public ActionResult UpdateSalaryStaff(int id, int salsry)
+        public ActionResult UpdateSalaryStaff(int id, int salary)
         {
             StaffModel staff = new StaffModel();
             if (!staff.GetStaffById(id, postgreas))
@@ -140,7 +140,7 @@ namespace AnimalHotel.Controllers
                 message = new MessageModel("Такого сотрудника нет", true);
                 return Redirect("/Owner/Staff");
             }
-            staff.UpdateSalaryStaff(id, salsry, postgreas);
+            staff.UpdateSalaryStaff(id, salary, postgreas);
 
             return Redirect("/Owner/Staff");
         }

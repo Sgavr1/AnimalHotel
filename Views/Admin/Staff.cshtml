@@ -77,8 +77,8 @@
             <p>@ViewBag.Branch.city @ViewBag.Branch.street @ViewBag.Branch.number_house</p>
             @foreach (StaffModel staff in ViewBag.Staffs)
             {
-                <p>@staff.infoPersone.first_name @staff.infoPersone.last_name @staff.account.role.name</p>
-                <form actin="/Owner/UpdateSalaryStaff">
+                <p>@staff.infoPersone.first_name @staff.infoPersone.last_name @staff.account.role.name @staff.id</p>
+                <form action="/Admin/UpdateSalaryStaff">
                     <ul>
                         <li>
                             <input type="number" name="id" value="@staff.id" /> <!-- недолжно быть видно -->
@@ -92,7 +92,7 @@
                     </ul>
                     <button type="submit">Изменить зарплату</button>
                 </form>
-                <a href="/owner/FireStaff/@staff.id">Уволить</a>
+                <a href="/Admin/FireStaff/@staff.id">Уволить</a>
             }
         </div>
     </div>
