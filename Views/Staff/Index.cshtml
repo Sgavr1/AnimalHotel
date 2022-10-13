@@ -111,37 +111,38 @@
                 </div>
                 <div class="all_form">
                     <h2>Заказ</h2>
-                    <div class="all_form">
-                    @if (ViewBag.Animal.id != 0)
+                    @if(ViewBag.Animal.id != 0)
+                {
+                    <p>@ViewBag.Animal.name</p>
+
+
+                    @if(ViewBag.SelectedRoom.id != 0)
                     {
-                        <p>Питомец: @ViewBag.Animal.name</p>
-                        @if (ViewBag.SelectedRoom.id != 0)
+                        <p>Номер комнаты @ViewBag.SelectedRoom.number</p> <a href="/Staff/RemoveRoomAnimalOrder/@ViewBag.SelectedRoom.id">Убрать</a>
+                        <p>Услуги</p>
+                        @foreach(ServiceModel service in ViewBag.SelectedServices)
                         {
-                            <p>Номер комнаты @ViewBag.SelectedRoom.number</p> <a href="/Staff/RemoveRoomAnimalOrder/@ViewBag.SelectedRoom.id">Убрать</a>
-                            <h2>Услуги</h2>
-                            @foreach (ServiceModel service in ViewBag.SelectedServices)
-                            {
-                                <p>@service.name</p>
-                                <a href="/Staff/RemoveServiceAnimalOrder/@service.id">Убрать</a>
-                            }
-                            <form action="/Staff/AddAnimalToOrder">
-                                <ul>
-                                    <li>
-                                        <label>Количество дней</label>
-                                    </li>
-                                    <li>
-                                        <input type="number" name="countDay" />
-                                    </li>
-                                    <li>
-                                        <label>Скидка</label>
-                                    </li>
-                                    <li>
-                                        <input type="number" name="sale" />
-                                    </li>
-                                </ul>
-                                <button type="submit">Добавить в заказ</button>
-                            </form>
+                            <p>@service.name</p>
+                            <a href="/Staff/RemoveServiceAnimalOrder/@service.id">Убрать</a>
                         }
+                        <form action="/Staff/AddAnimalToOrder">
+                            <ul>
+                                <li>
+                                    <label>Количество дней</label>
+                                </li>
+                                <li>
+                                    <input type="number" name="countDay"/>
+                                </li>
+                                <li>
+                                    <label>Скидка</label>
+                                </li>
+                                <li>
+                                    <input type="number" name="sale"/>
+                                </li>
+                            </ul>
+                            <button type="submit">Добавить в заказ</button>
+                        </form>
+                    }
 
                         <div>
                             <p>Найти комнату по типу</p>
@@ -186,7 +187,7 @@
                         </div>
                     }
 
-                    </div>
+               
 
                     @if (ViewBag.Orders.animalOrders.Count != 0)
                     {
@@ -235,12 +236,11 @@
                             </div>
                         }
                     </div>
-                </div>
+                  </div>   
             }
+
+
         </div>
-
-
-
 
 
         <div class="all_form">
