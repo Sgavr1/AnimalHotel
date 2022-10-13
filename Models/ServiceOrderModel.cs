@@ -51,7 +51,7 @@ namespace AnimalHotel.Models
             return serviceOrders;
         }
 
-        public void AddServiceOrder(int anemalOrder, string postgreas)
+        public void AddServiceOrder(int animalOrder, string postgreas)
         {
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();

@@ -111,80 +111,82 @@
                 </div>
                 <div class="all_form">
                     <h2>Заказ</h2>
-                    @if(ViewBag.Animal.id != 0)
-                {
-                    <p>@ViewBag.Animal.name</p>
-                    @if(ViewBag.SelectedRoom.id != 0)
+                    @if (ViewBag.Animal.id != 0)
                     {
-                        <p>Номер комнаты @ViewBag.SelectedRoom.number</p> <a href="/Staff/RemoveRoomAnimalOrder/@ViewBag.SelectedRoom.id">Убрать</a>
-                        <p>Услуги</p>
-                        @foreach(ServiceModel service in ViewBag.SelectedServices)
+                        <p>@ViewBag.Animal.name</p>
+                        @if (ViewBag.SelectedRoom.id != 0)
                         {
-                            <p>@service.name</p>
-                            <a href="/Staff/RemoveServiceAnimalOrder/@service.id">Убрать</a>
+                            <p>Номер комнаты @ViewBag.SelectedRoom.number</p> <a href="/Staff/RemoveRoomAnimalOrder/@ViewBag.SelectedRoom.id">Убрать</a>
+                            <p>Услуги</p>
+                            @foreach (ServiceModel service in ViewBag.SelectedServices)
+                            {
+                                <p>@service.name</p>
+                                <a href="/Staff/RemoveServiceAnimalOrder/@service.id">Убрать</a>
+                            }
+                            <form action="/Staff/AddAnimalToOrder">
+                                <ul>
+                                    <li>
+                                        <label>Количество дней</label>
+                                    </li>
+                                    <li>
+                                        <input type="number" name="countDay" />
+                                    </li>
+                                    <li>
+                                        <label>Скидка</label>
+                                    </li>
+                                    <li>
+                                        <input type="number" name="sale" />
+                                    </li>
+                                </ul>
+                                <button type="submit">Добавить в заказ</button>
+                            </form>
                         }
-                        <form action="/Staff/AddAnimalToOrder">
-                            <ul>
-                                <li>
-                                    <label>Количество дней</label>
-                                </li>
-                                <li>
-                                    <input type="number" name="countDay"/>
-                                </li>
-                                <li>
-                                    <label>Скидка</label>
-                                </li>
-                                <li>
-                                    <input type="number" name="sale"/>
-                                </li>
-                            </ul>
-                            <button type="submit">Добавить в заказ</button>
-                        </form>
+
+                        <div>
+                            <p>Найти комнату по типу</p>
+                            <form action="/Staff/RoomToOrderAnimal">
+                                <ul>
+                                    <li>
+                                        <label>Тип Комнаты</label>
+                                    </li>
+                                    <li>
+                                        @for (int i = 0; i < ViewBag.RoomType.Count; i++)
+                                        {
+                                            <input type="radio" id="animalType_@i" name="type" value="@ViewBag.RoomType[i].id" />
+                                            <label for="animalType_@i">@ViewBag.RoomType[i].name</label>
+                                        }
+                                    </li>
+                                </ul>
+                                <button class="staff_btn" type="submit">Найти</button>
+                            </form>
+
+                            @if (ViewBag.SelectedRoom.id == 0)
+                            {
+                                @foreach (RoomModel room in ViewBag.RoomAnimalOrder)
+                                {
+                                    <div>
+                                        <p>@room.number</p>
+                                        <p>@room.Price</p>
+                                        <a href="/Staff/fillSelectRoom/@room.id">Выбрать</a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                @foreach (ServiceModel service in ViewBag.ServiceAnimals)
+                                {
+                                    <div>
+                                        <p>@service.name</p>
+                                        <p>@service.Price</p>
+                                        <a href="/Staff/fillSelectedService/@service.id">Выбрать</a>
+                                    </div>
+                                }
+                            }
+                        </div>
                     }
 
-                    <div>
-                        <p>Найти комнату по типу</p>
-                        <form action="/Staff/RoomToOrderAnimal">
-                            <ul>
-                                <li>
-                                    <label>Тип Комнаты</label>
-                                </li>
-                                <li>
-                                    @for (int i = 0; i < ViewBag.RoomType.Count; i++)
-                                    {
-                                        <input type="radio" id="animalType_@i" name="type" value="@ViewBag.RoomType[i].id" />
-                                        <label for="animalType_@i">@ViewBag.RoomType[i].name</label>
-                                    }
-                                </li>
-                            </ul>
-                            <button class = "staff_btn" type="submit">Найти</button>
-                        </form>
-
-                        @if (ViewBag.SelectedRoom.id == 0)
-                        {
-                            @foreach (RoomModel room in ViewBag.RoomAnimalOrder)
-                            {
-                                <div>
-                                    <p>@room.number</p>
-                                    <p>@room.Price</p>
-                                    <a href="/Staff/fillSelectRoom/@room.id">Выбрать</a>
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            @foreach (ServiceModel service in ViewBag.ServiceAnimals)
-                            {
-                                <div>
-                                    <p>@service.name</p>
-                                    <p>@service.Price</p>
-                                    <a href="/Staff/fillSelectedService/@service.id">Выбрать</a>
-                                </div>
-                            }
-                        }
-                    </div>
-                }
-
+                    @if (ViewBag.Orders.animalOrders.Count != 0)
+                    {
                 <div class="all_form">
                     <p>В заказе</p>
                     @foreach (AnimalOrderModel animalOrder in ViewBag.Orders.animalOrders)
@@ -215,22 +217,22 @@
                         </div>
                     }
                     <!-- <p>Цена @ViewBag.Price</p>-->
-                </div>
                     <a href="/Staff/InsertOrder">Создать заказ</a>
                     <a href="/Staff/CloseOrder">Очистить</a>
-              
-
-
-                <div>
-                    @foreach(AnimalModel animal in ViewBag.Animals)
-                {
-                    <div>
-                        <p>@animal.animalType.name @animal.name</p>
-                        <a href="/Staff/AnimalToOrder/@animal.id">Добавить в заказ</a>
-                    </div>
-                }
                 </div>
-                  </div>
+                        
+                    }
+
+                    <div>
+                        @foreach (AnimalModel animal in ViewBag.Animals)
+                        {
+                            <div>
+                                <p>@animal.animalType.name @animal.name</p>
+                                <a href="/Staff/AnimalToOrder/@animal.id">Добавить в заказ</a>
+                            </div>
+                        }
+                    </div>
+                </div>
             }
         </div>
 
