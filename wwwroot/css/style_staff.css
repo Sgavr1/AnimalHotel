@@ -1,0 +1,38 @@
+﻿.main_order{
+    margin: 80px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.return_pet{
+
+}
+
+.staff_btn {
+    width: 100%;
+    background-color: #080706;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.pet_info {
+   
+}
+
+    .pet_info li {
+        display: inline-block;
+    }
+
+.staff_btn:hover {
+    background-color: red;
+}
