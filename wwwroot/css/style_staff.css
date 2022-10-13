@@ -1,4 +1,6 @@
-﻿.main_order{
+﻿@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+.main_order{
     margin: 80px;
     background-color: white;
     padding: 10px;
@@ -6,6 +8,10 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+html {
+    font-family: 'Oswald', sans-serif;
+
+}
 
 .return_pet{
 
@@ -22,6 +28,7 @@
     cursor: pointer;
     transition-duration: 0.4s;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-weight:500;
 }
 
 h3{
@@ -42,15 +49,14 @@ h3{
 
 
 .orders_cl {
+    font-family: 'Oswald', sans-serif;
     display: inline-block;
     margin: 20px;
     background: #080706;
     color: #EFEFEF;
-    transition-duration:0.5s;
-    padding:10px;
-    border-radius:5px;
- 
-    
+    transition-duration: 0.5s;
+    padding: 10px;
+    border-radius: 5px;
 }
 
     .orders_cl a {

@@ -1,4 +1,13 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+
+html {
+    font-family: 'Oswald', sans-serif;
+}
+i{
+    font-size:40px;
+}
 
 header .header {
     background-color: #fff;
@@ -34,7 +43,7 @@ header a img {
 }
 
     .form input {
-        font-family: "Roboto", sans-serif;
+        font-family: 'Oswald', sans-serif;
         outline: 0;
         background: #D1B280;
         width: 100%;
@@ -47,7 +56,7 @@ header a img {
     }
 
     .form button {
-        font-family: "Roboto", sans-serif;
+        font-family: 'Oswald', sans-serif;
         text-transform: uppercase;
         outline: 0;
         background-color: #594D46;
@@ -86,7 +95,13 @@ header a img {
 
 body {
     background-color: #EFEFEF;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Oswald', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+
+h3
+{
+    font-weight:600;
 }
