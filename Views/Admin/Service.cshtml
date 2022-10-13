@@ -1,12 +1,28 @@
 ﻿@using AnimalHotel.Models;
 <html>
+    <head>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+     <link href="~/css/style_navigation.css" rel="stylesheet" type="text/css">
+     <link href="~/css/style_form.css" rel="stylesheet" type="text/css">
+     <link href="~/css/site.css" rel="stylesheet" type="text/css">
+
+    </head>
 <body>
     <header>
-        <a href="/Admin/Staff">Сотрудники</a>
-        <a href="/Admin/Room">Комнаты</a>
-        <a href="/Admin/Report">Отчеты</a>
+    <div class="nav">
+    <ul class="main_nav">
+    <li > <a href="/Admin/Staff">Співробітники</a></li>
+    <li >  <a href="/Admin/Room">Кімнати</a></li>
+    <li> <a href="/Admin/Report">Звіти</a></li>
+    <li class ="active" > <a href="/Admin/Service">Послуги</a></li>
+    </ul>
+    </div>
     </header>
+
+
     <div>
+   <div class="all_form">
+            <h2>Форма добавления услуг</h2>
         <form action="/Admin/AddService">
             <ul>
                 <li>
@@ -32,42 +48,56 @@
                     <input type="number" name="price" />
                 </li>
             </ul>
-            <button type="submit">Добавить новую услугу</button>
+            <input type="submit" value="Добавить новую услугу" />
         </form>
+        </div>
 
-        <p>Все типы комнат</p>
-        <div>
+
+         <div class="all_types">
+
+    
+        <div class="types" id="room_types">
+                <p>Все типы комнат</p>
             @foreach (RoomTypeModel roomType in ViewBag.RoomType)
             {
                 <p>@roomType.name</p>
             }
         </div>
-        <p>Все типы животных</p>
-        <div>
+
+
+        <div class="types" id="pet_types">
+                    <p>Все типы животных</p>
             @foreach (AnimalTypeMode animalType in ViewBag.AnimalType)
             {
                 <p>@animalType.name</p>
             }
         </div>
-        <p>Все услуги</p>
-        <div>
+
+        </div>
+
+
+        <div class="uslugi"> 
+        <h2>Все услуги</h2>
             @foreach (ServiceModel service in ViewBag.Service)
             {
+                <div class="types" id="usl_types" >
                 <p>@ViewBag.Branch.city @ViewBag.Branch.street @ViewBag.Branch.number_house</p>
-
-
                 @if (service.status)
                 {
                     <p>@service.name @service.Price @service.animalType.name</p>
-                    <a href="/Admin/CloseService/@service.id">закрыть</a>
+                    <a class="open_close" href="/Admin/CloseService/@service.id">закрыть</a>
                 }
                 else
                 {
                     <p>@service.name @service.Price @service.animalType.name</p>
-                    <a href="/Admin/OpenService/@service.id">открыть</a>
+                    <a class="open_close" href="/Admin/OpenService/@service.id">открыть</a>
                 }
+                </div>
             }
         </div>
+
     </div>
+
+
 </body>
 </html>
