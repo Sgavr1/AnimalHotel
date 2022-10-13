@@ -51,12 +51,12 @@ namespace AnimalHotel.Models
             return serviceOrders;
         }
 
-        public void AddServiceOrder(int anemalOrder, string postgreas)
+        public void AddServiceOrder(int animalOrder, string postgreas)
         {
             DBConect db = new DBConect(postgreas);
             db.OpenConnection();
             NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter();
-            NpgsqlCommand command = new NpgsqlCommand($"Insert Into ServiceOrder(service_id, sale, animalOrder, price) Values('{this.service.id}', '{this.sale}', '{animalOrder}', '{this.price}') Returning id;", db.getConnection());
+            NpgsqlCommand command = new NpgsqlCommand($"Insert Into ServiceOrder(service_id, sale, animalOrder_id, price) Values('{this.service.id}', '{this.sale}', '{animalOrder}', '{this.price}') Returning id;", db.getConnection());
             npgsqlDataAdapter.SelectCommand = command;
             NpgsqlDataReader npgsqlDataReader = command.ExecuteReader();
             while (npgsqlDataReader.Read())

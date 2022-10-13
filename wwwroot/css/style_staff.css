@@ -24,6 +24,9 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+h3{
+    text-align:center;
+}
 
 .pet_info {
    
@@ -36,3 +39,25 @@
 .staff_btn:hover {
     background-color: red;
 }
+
+
+.orders_cl {
+    display: inline-block;
+    margin: 20px;
+    background: #080706;
+    color: #EFEFEF;
+    transition-duration:0.5s;
+    padding:10px;
+    border-radius:5px;
+ 
+    
+}
+
+    .orders_cl a {
+        text-decoration: none;
+        color: #D1B280;
+    }
+
+    .orders_cl:hover {
+        background: #2b5ce3;
+    }
