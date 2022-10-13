@@ -1,27 +1,43 @@
 ﻿@using AnimalHotel.Models
 <html>
+    <head>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+     <link href="~/css/style_navigation.css" rel="stylesheet" type="text/css">
+     <link href="~/css/style_form.css" rel="stylesheet" type="text/css">
+     <link href="~/css/site.css" rel="stylesheet" type="text/css">
+
+    </head>
 <body>
     <header>
-        <a href="/Owner/Branch">Отделения</a>
-        <a href="/Owner/Staff">Сотрудники</a>
-        <a href="/Owner/ControlType">Управление Типами</a>
-        <a href="/Owner/Report">Отчеты</a>
+    <div class="nav">
+    <ul class="main_nav">
+    <li ><a href="/Owner/Branch">Відділення</a></li>
+    <li > <a href="/Owner/Staff">Співробітники</a></li>
+    <li >  <a href="/Owner/ControlType">Управління Типами</a></li>
+    <li class ="active">  <a href="/Owner/Room">Кімнати</a></li>
+    <li> <a href="/Owner/Report">Звіти</a></li>
+    </ul>
+    </div>
     </header>
+
     <div>
+
+        <div class="all_form">
+            <h2>Форма добавления комнаты</h2>
         <form action="/Owner/AddRoom">
             <ul>
                 <li>
                     <label>Животное</label>
                 </li>
                 <li>
-                    @for (int i = 0; i < ViewBag.AnimalType.Count; i++)
+                    @for (int i = 0; i < ViewBag.RoomType.Count; i++)
                     {
                         <input type="radio" id="animalType_@i" name="animalType" value="@ViewBag.AnimalType[i].id" />
                         <label for="animalType_@i">@ViewBag.AnimalType[i].name</label>
                     }
                 </li>
                 <li>
-                    <label>номер комнаты</label>
+                    <label>Номер комнаты</label>
                 </li>
                 <li>
                     <input type="text" name="number" />
@@ -53,28 +69,31 @@
                     }
                 </li>
             </ul>
-            <button type="submit">Добавить новую комнату</button>
+            <input type="submit" value="Добавить новую комнату" />
         </form>
-        <div>
+        </div>
+
+
+        <div class="all_form">
             @foreach (BranchModel branch in ViewBag.Branches)
             {
                 @foreach (RoomModel room in ViewBag.Rooms)
                 {
                     @if (branch.id == room.branch.id)
                     {
-                        <div>
+                        <div class="types" id="room_st">
                             <p>@branch.city @branch.street @branch.number_house</p>
 
 
                             @if (room.status)
                             {
                                 <p>@room.number @room.Price @room.animalType.name @room.roomType.name</p>
-                                <a href="/Owner/CloseRoom/@room.id">закрыть</a>
+                                <a class= "open_close2" href="/Owner/CloseRoom/@room.id">закрыть</a>
                             }
                             else
                             {
                         <p>@room.number @room.Price @room.animalType.name @room.roomType.name</p>
-                                <a href="/Owner/OpenRoom/@room.id">открыть</a>
+                                <a class= "open_close2" href="/Owner/OpenRoom/@room.id">открыть</a>
                             }
                         </div>
                     }
@@ -82,6 +101,9 @@
                 }
             }
         </div>
+
+
+
     </div>
 </body>
 </html>

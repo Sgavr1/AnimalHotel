@@ -1,6 +1,14 @@
 ﻿<html>
+    <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+     <link href="~/css/style_login.css" rel="stylesheet" type="text/css">    
+
+</head>
+  <!--
     <body>
+       <div class ="form_login">
         <form action="/Login/Login">
+            <div class="form_input">
             <ul>
                 <li>
                     <label>Логин</label>
@@ -16,6 +24,30 @@
                 </li>
             </ul>
             <button type="submit">Вход</button>
+            </div>
         </form>
+        </div>
     </body>
+
+    -->
+
+    <body>
+    <div class="login-page">
+      <div class="form">
+        <div class="login">
+          <div class="login-header">
+            <h3>АВТОРИЗАЦІЯ</h3>
+            <p>Будь ласка, введіть логін та пароль, щоб увійти.</p>
+          </div>
+        </div>
+        <form action="/Login/Login" class="login-form" >
+          <input type="Логін" placeholder="логін" name="login" />
+          <input type="Пароль" placeholder="пароль" name="password" />
+          <button type="submit" >Увійти</button>
+          <p class="message">Не зареєстрований?  <a href="#">Створити аккаунт</a></p>
+        </form>
+      </div>
+    </div>
+</body>
+
 </html>

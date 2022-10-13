@@ -1,13 +1,28 @@
 ﻿@using AnimalHotel.Models
+<html>
+    <head>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+     <link href="~/css/style_navigation.css" rel="stylesheet" type="text/css">
+      <link href="~/css/style_form.css" rel="stylesheet" type="text/css">
+      <link href="~/css/site.css" rel="stylesheet" type="text/css">
+    </head>
 <body>
     <header>
-        <a href="/Owner/Branch">Отделения</a>
-        <a href="/Owner/Staff">Сотрудники</a>
-        <a href="/Owner/ControlType">Управление Типами</a>
-        <a href="/Owner/Room">Комнаты</a>
-        <a href="/Owner/Report">Отчеты</a>
+    <div class="nav">
+    <ul class="main_nav">
+    <li ><a href="/Owner/Branch">Відділення</a></li>
+    <li > <a href="/Owner/Staff">Співробітники</a></li>
+    <li class ="active">  <a href="/Owner/ControlType">Управління Типами</a></li>
+    <li>  <a href="/Owner/Room">Кімнати</a></li>
+    <li> <a href="/Owner/Report">Звіти</a></li>
+    </ul>
+    </div>
+
+
     </header>
-    <div>
+
+        <div class="all_form">
+              <h2>Форма добавления типа комнаты</h2>
         <form action="/Owner/AddRoomType">
             <ul>
                 <li>
@@ -17,9 +32,13 @@
                     <input type="text" name="nameType" />
                 </li>
             </ul>
-            <button type="submit">Добавить новое тип комнаты</button>
+               <input type="submit" value ="Добавить новое тип комнаты" />
         </form>
+      </div>
 
+
+      <div class="all_form">
+            <h2>Форма добавления типа животных</h2>
         <form action="/Owner/AddAnimalType">
             <ul>
                 <li>
@@ -29,9 +48,13 @@
                     <input type="text" name="nameType" />
                 </li>
             </ul>
-            <button type="submit">Добавить новое тип животных</button>
+            <input type="submit" value ="Добавить новое тип животных" />
         </form>
+        </div>
 
+
+        <div class="all_form">
+              <h2>Форма добавления услуг</h2>
         <form action="/Owner/AddService">
             <ul>
                 <li>
@@ -67,51 +90,61 @@
                     <input type="number" name="price" />
                 </li>
             </ul>
-            <button type="submit">Добавить новую услугу</button>
+                <input type="submit" value ="Добавить новую услугу" />
         </form>
+          </div>
 
-        <p>Все типы комнат</p>
-        <div>
+          <div class="all_types">
+        
+        <div class="types" id="room_types">
+            <p>Все типы комнат:</p>
             @foreach (RoomTypeModel roomType in ViewBag.RoomType)
             {
                 <p>@roomType.name</p>
             }
         </div>
-        <p>Все типы животных</p>
-        <div>
+
+
+        <div class="types" id="pet_types">
+                    <p>Все типы животных:</p>
             @foreach (AnimalTypeMode animalType in ViewBag.AnimalType)
             {
                 <p>@animalType.name</p>
             }
         </div>
-        <p>Все услуги</p>
-        <div>
+
+         </div>
+
+        <div class="uslugi">
+                    <h2>Все услуги:</h2>
             @foreach (BranchModel branch in ViewBag.Branches)
             {
                 @foreach (ServiceModel service in ViewBag.Service)
                 {
                     @if (branch.id == service.branch.id)
                     {
-                        <div>
+                        <div class="types" id="usl_types">
                             <p>@branch.city @branch.street @branch.number_house</p>
 
 
                             @if (service.status)
                             {
                                 <p>@service.name @service.Price @service.animalType.name</p>
-                                <a href="/Owner/CloseService/@service.id">закрыть</a>
+                                <a class="open_close" href="/Owner/CloseService/@service.id">Закрыть</a>
                             }
                             else
                             {
                                 <p>@service.name @service.Price @service.animalType.name</p>
-                                <a href="/Owner/OpenService/@service.id">открыть</a>
+                                <a class="open_close" href="/Owner/OpenService/@service.id">Открыть</a>
                             }
                         </div>
                     }
 
                 }
             }
-        </div>
-    </div>
+
+         </div>   
+            
+           
 </body>
 </html>
